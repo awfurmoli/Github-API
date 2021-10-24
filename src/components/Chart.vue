@@ -5,6 +5,7 @@
         <h1 class="display-2 font-weight-bold mb-3">
           {{ msg }}
         </h1>
+        <button @click="getData">Get Data</button>
         <p class="subheading font-weight-regular">
           GitHub API, building a small web service that returns the top N
           repositories by star count for a specific language.
@@ -37,32 +38,44 @@
                 ></v-text-field>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col>
+                <ul>
+                  <li v-for="record in records" :key="record.id">
+                    <div>
+                      {{ record.email }}--{{ first_name }}--{{ last_name }}
+                      <img :src="record.avatar" alt="avatar" />
+                    </div>
+                  </li>
+                </ul>
+              </v-col>
+            </v-row>
           </v-container>
         </v-form>
-        <v-row justify="center">
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     name: "Chart",
     language: "Lang",
+    records: [],
   }),
   props: {
     msg: String,
+  },
+  methods: {
+    async getData() {
+      const response = await axios.get("https://reqres.in/api/users?page=2");
+      const result = await response.data.data;
+      console.log(result);
+      this.records = result;
+    },
   },
 };
 </script>
