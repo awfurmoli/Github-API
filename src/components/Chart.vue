@@ -13,45 +13,14 @@
       </v-col>
       <v-col class="mb-5" cols="12">
         <h2 class="headline font-weight-bold mb-3">The {{ language }} Repos</h2>
-        <v-form>
-          <v-container class="justify-center">
-            <v-row>
-              <v-col cols="6" sm="3">
-                <v-combobox
-                  clearable
-                  outlined
-                  persistent-hint
-                  small-chips
-                  solo
-                  label="Language"
-                  hint="Select The Repo Language"
-                ></v-combobox>
-              </v-col>
-              <v-col cols="6" sm="3">
-                <v-text-field
-                  v-model="title"
-                  :rules="rules"
-                  outlined
-                  counter="2"
-                  hint="This field uses counter prop"
-                  label="Repo Count"
-                ></v-text-field>
-              </v-col>
-            </v-row>
-            <v-row>
-              <v-col>
-                <ul>
-                  <li v-for="record in records" :key="record.id">
-                    <div>
-                      {{ record.email }}--{{ first_name }}--{{ last_name }}
-                      <img :src="record.avatar" alt="avatar" />
-                    </div>
-                  </li>
-                </ul>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-form>
+
+        <v-container class="justify-center">
+          <v-row> <form-view></form-view> </v-row>
+          <v-row>
+            <h2>The Chart</h2>
+            <the-chart></the-chart>
+          </v-row>
+        </v-container>
       </v-col>
     </v-row>
   </v-container>
@@ -59,8 +28,11 @@
 
 <script>
 import axios from "axios";
+import TheChart from "./TheChart.vue";
+import FormView from "./FormView.vue";
 
 export default {
+  components: { TheChart, FormView },
   data: () => ({
     name: "Chart",
     language: "Lang",
@@ -76,6 +48,9 @@ export default {
       console.log(result);
       this.records = result;
     },
+  },
+  created() {
+    this.getData();
   },
 };
 </script>
