@@ -1,5 +1,5 @@
 <template>
-  <v-form>
+  <v-form autoocomplete="off">
     <v-container class="justify-center">
       <v-row>
         <v-col cols="6" sm="3">
